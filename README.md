@@ -62,7 +62,8 @@ Log live climate IoT data, with flexibility to handle and scalability to manage 
 ### HTML:
 Stream live, home climate conditions to the Whether Weather App.
 
-<img width="774" height="396" alt="image" src="https://github.com/user-attachments/assets/fc26f39e-6a72-40b6-8689-524419e3a223" />
+![Topology](image-9.png)
+
 
 ## Testing & Data Analysis:
 Packet Tracer prototype to simulate a smart home network that utilize IoT devices and applications.
@@ -70,6 +71,6 @@ RPi and Sense HAT setup in living space, collecting cumulative data to test the 
 Potential for use of simulated data with temperature/humidity spikes/troughs for alert system.
 Statistical analysis of home air quality including comparative study with optimal living conditions. Useful for predictive model training for intuitive home assistant.
 
-![Topology](image-9.png)
+
 
 
