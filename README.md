@@ -6,7 +6,7 @@
 Repository: https://github.com/ChloeKC/IOT_Application_RPi
 #
 
-![RPI](image-3.png)
+![RPi](image-3.png)
 #
 
 ## Introduction
@@ -70,6 +70,6 @@ RPi and Sense HAT setup in living space, collecting cumulative data to test the 
 Potential for use of simulated data with temperature/humidity spikes/troughs for alert system.
 Statistical analysis of home air quality including comparative study with optimal living conditions. Useful for predictive model training for intuitive home assistant.
 
-![alt text](image-9.png)
+![Topology](image-9.png)
 
 
