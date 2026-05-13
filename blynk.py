@@ -1,7 +1,8 @@
 #define BLYNK_TEMPLATE_ID "TMPL4SspJfUmI"
 #define BLYNK_TEMPLATE_NAME "SensePi"
 
-import BlynkLib, os
+import BlynkLib
+import os
 from time import time, sleep
 from sense_hat import SenseHat
 
@@ -12,36 +13,55 @@ sense.clear()
 # Blynk authentication token
 BLYNK_AUTH = os.getenv("BLYNK_AUTH")
 
-# Initialise the Blynk instance
+# Initialise Blynk instance
 blynk = BlynkLib.Blynk(BLYNK_AUTH)
 
-#time in seconds before process times out/shuts down
-INACTIVITY_TIMEOUT = 30  #  30 seconds
-blynk.last_activity = time()   # attach last activity to the instance
+# Time before process shuts down
+INACTIVITY_TIMEOUT = 30
 
-# Register handler for virtual pin V1 write event
+# Attach last activity
+blynk.last_activity = time()
+
+# Handle virtual pin V1 write events
 @blynk.on("V1")
 def handle_v1_write(value):
-    button_value = value[0]
-    blynk.last_activity = time()  # Track last time we saw any activity
-    print(f'Current button value: {button_value}')
-    if button_value=="1":
-        sense.clear(255,255,255)
-    else:
-        sense.clear()
 
-# Main loop to keep the Blynk connection alive and process events
+	button_value = value[0]
+
+	# Track activity timestamp
+	blynk.last_activity = time()
+
+	print(f'Current button value: {button_value}')
+	if button_value=="1":
+		sense.clear(255,255,255)
+	else:
+		sense.clear()
+
+# Main Programme loop
 if __name__ == "__main__":
+
 	print("Blynk application started. Listening for events...")
+
 	try:
 		while True:
-			blynk.run()  # Process Blynk events
-			blynk.virtual_write(0,sense.temperature) # Send temperature to virtual pin V0
+
+			# Process events
+			blynk.run()
+
+			# Send temperature to virtual pin V0
+			blynk.virtual_write(0,sense.temperature)
+
+			# Send humidity to virtual pin V2
+			blynk.virtual_write(2,sense.humidity)
+
 			now = time()
-			# If there's been no activity, break out of loop
+
+			# If no activity, break loop
 			if now - blynk.last_activity > INACTIVITY_TIMEOUT:
-            			print(f"No activity for {INACTIVITY_TIMEOUT} seconds. Exiting.")
-		break
-			sleep(2)  # Add a short delay to avoid high CPU usage
-		except KeyboardInterrupt:
-			print("Blynk application stopped.")
+				print(f"No activity for {INACTIVITY_TIMEOUT} seconds. Exiting.")
+				break
+
+			sleep(2)  # Avoids high CPU usage
+
+	except KeyboardInterrupt:
+		print("Blynk application stopped.")

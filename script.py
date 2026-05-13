@@ -7,7 +7,8 @@
 # Import libraries
 from sense_hat import SenseHat
 import BlynkLib, os, pathlib
-from time import time, sleep
+from time import sleep
+import json
 
 # Define colours
 GREEN = (0,255,0)
@@ -27,16 +28,17 @@ sense.show_message(
 )
 
 # Note: Temperature and Humidity readings can be influenced
-#       by heat from RPi's CPU. Raw data is callibrated to
-#       for accuracy.
+#       by heat from RPi's CPU. The humidity sensor on the SenseHAT
+#	generally reads too low because it is affected by heat.
+#	Raw data is calibrated to for accuracy.
 
 
 # Line 33 Function to retrieve sensor data
 def get_env_data():
 
 	# Read sensor data
-	temp = (sense.get_temperature()-7)
-	humdty = sense.get_humidity()
+	temp = round(sense.get_temperature() - 7, 2)
+	humdty = round(sense.get_humidity() - 10, 2)
 
 	# Determine state
 	if temp > 25 or humdty > 70:
@@ -77,14 +79,15 @@ while True:
 	)
 
 	# LED colour logic
-	if temp > 25 or humdty > 70:
-	      	colour = RED
+	if state == "WARNING":
+    		colour = RED
 
-	elif temp < 18 or humdty < 40:
-        	colour = BLUE
+	elif state == "LOW":
+    		colour = BLUE
 
 	else:
-		colour = GREEN
+    		colour = GREEN
+
 
 	# Display temperature:
 	sense.show_message(
@@ -104,3 +107,4 @@ while True:
 	time.sleep(2)
 
 # Line 101 client.publish(topic, json_data)
+
