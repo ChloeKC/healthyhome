@@ -1,13 +1,15 @@
-
+# !/usr/bin/env python3
 # Author: Chloe Croydon 20119102
 # Program Description:
 # This program welcomes user and facilitates telemetry data retrieval from Sense
 # HAT and returns collected environmental data to MQTT broker via json file.
 
 # Import libraries
+import time, pathlib, os
+from datetime import datetime
+
 from sense_hat import SenseHat
-import BlynkLib, os, pathlib
-from time import time, sleep
+import json
 
 # Define colours
 GREEN = (0,255,0)
@@ -21,28 +23,23 @@ deviceID = "rpi-01"
 
 # Greeting
 sense.show_message(
-	"Hello Healthy Home Hacker",
+	"Hello!",
 	scroll_speed=0.05,
 	text_colour=GREEN
 )
 
-# Note: Temperature and Humidity readings can be influenced
-#       by heat from RPi's CPU. Raw data is callibrated to
-#       for accuracy.
-
-
-# Line 33 Function to retrieve sensor data
+# Line 28 Function to retrieve sensor data
 def get_env_data():
 
 	# Read sensor data
-	temp = (sense.get_temperature()-7)
+	temp = sense.get_temperature()
 	humdty = sense.get_humidity()
 
 	# Determine state
 	if temp > 25 or humdty > 70:
 		state = "WARNING"
 
-	elif temp < 18 or humdty < 35:
+	elif temp < 18 or humdty < 40:
 		state = "LOW"
 
 	else:
@@ -58,8 +55,9 @@ def get_env_data():
 
 	return data
 
+# Note: Temperature readings may be influenced by Raspberry Pi CPU heat
 
-# Line 60 Main Loop
+# Line 57 Main Loop
 while True:
 
 	# Get readings
@@ -95,9 +93,9 @@ while True:
 
 	# Display Humidity:
 	sense.show_message(
-		"Humy:{:.1f}%".format(humdty),
+		"Humdty:{:.1f}%".format(humdty),
 		text_colour=colour,
-		scroll_speed=0.08
+		scroll_speed=0.05
 	)
 
 	# Delay before next reading

@@ -6,8 +6,7 @@
 
 # Import libraries
 from sense_hat import SenseHat
-import BlynkLib, os, pathlib
-from time import time, sleep
+import time
 
 # Define colours
 GREEN = (0,255,0)
@@ -17,38 +16,32 @@ RED = (255,0,0)
 # Initialise Sense HAT
 sense = SenseHat()
 sense.clear()
-deviceID = "rpi-01"
 
-# Greeting
+# User greeting
 sense.show_message(
-	"Hello Healthy Home Hacker",
+	"Hello!",
 	scroll_speed=0.05,
 	text_colour=GREEN
 )
 
-# Note: Temperature and Humidity readings can be influenced
-#       by heat from RPi's CPU. Raw data is callibrated to
-#       for accuracy.
-
-
-# Line 33 Function to retrieve sensor data
+# Create function that returns sensor data
 def get_env_data():
 
 	# Read sensor data
-	temp = (sense.get_temperature()-7)
+	temp = sense.get_temperature()
 	humdty = sense.get_humidity()
 
 	# Determine state
 	if temp > 25 or humdty > 70:
 		state = "WARNING"
 
-	elif temp < 18 or humdty < 35:
+	elif temp < 16 or humdty < 40:
 		state = "LOW"
 
-	else:
+	else :
 		state = "OK"
 
-	# Create a dictionary
+	# Create dictionary
 	data = {
 		"deviceID": deviceID,
 		"temp": round(temp, 2),
@@ -58,49 +51,50 @@ def get_env_data():
 
 	return data
 
+# Temperature readings may be influenced by Raspberry Pi CPU heat
 
-# Line 60 Main Loop
 while True:
 
 	# Get readings
 	data = get_env_data()
 
-	deviceID = data["deviceID"]
-	temp = data["temp"]
-	humdty = data["humidity"]
-	state = data["state"]
-
 	# Print to command line
 	print(
-		"Temperature: {:.1f} C Humidity: {:.1f} % | State: {}"
-		.format(temp, humdty, state)
+		"Temperature: {:.1f} C Humidity: {:.1f} %"
+		.format(data)
 	)
 
-	# LED colour logic
+	# Display LED colour logic
 	if temp > 25 or humdty > 70:
-	      	colour = RED
-
+		colour = RED
 	elif temp < 18 or humdty < 40:
-        	colour = BLUE
-
+		colour = BLUE
 	else:
 		colour = GREEN
 
 	# Display temperature:
 	sense.show_message(
-		"Temp:{:.1f}C".format(temp),
-		text_colour=colour,
+		"T:{:.1f}C".format(temp),
+		text_colour=RED,
 		scroll_speed=0.05
 	)
 
 	# Display Humidity:
 	sense.show_message(
-		"Humy:{:.1f}%".format(humdty),
-		text_colour=colour,
-		scroll_speed=0.08
+		"H:{:.1f}%".format(humdty),
+		text_colour=BLUE,
+		scroll_speed=0.05
 	)
 
 	# Delay before next reading
 	time.sleep(2)
 
-# Line 101 client.publish(topic, json_data)
+# Allow standalone testing
+#if __name__ == "__main__":
+
+	# Example device ID and usage
+#	deviceID = "myDevice1"
+#	env_data = get_environmental_data(deviceID)
+
+	# Print the data in JSON format for testing
+#	print(env_data)
