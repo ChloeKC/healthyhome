@@ -27,11 +27,10 @@ This project implements an IoT-based indoor climate monitoring system using a Ra
 
 A cost saving, health and environment friendly solution for air quality and temperature regulation in a fully insulated, airtight environment without adequate mechanical ventilation and heat recovery. Monitoring and solving consequent air temperature, pressure, moisture and mould issues, with further possibilities for excess VOC, CO2 and Radon detection. 
 
-‘Airtight houses experience negative pressure, which could reduce airflow’ A. Bailes III. This could lead to back drafting where combustion gases, from cooker hoods for example, are pulled back into the house.
+‘Airtight houses experience negative pressure, which could reduce airflow’ A. Bailes III. 
+This could lead to back drafting where combustion gases, from cooker hoods for example, are pulled back into the house.
 
-![alt text](image.png)
-
-![Retrofit_Dublin](image-8.png)
+![retrofitDublin](image.png)
 
 ##### “Build Tight, Ventilate Right.” SEAI
 
@@ -71,7 +70,7 @@ Future potential for adding live, home climate conditions to the Whether Weather
 
 ## Network Topology
 
-![Topology](image-9.png)
+![PacketTracer](image-2.png)
 
 
 ## Testing & Data Analysis:
@@ -85,7 +84,7 @@ Blynk event and automation testing with simulated data, temperature/humidity spi
 
 Statistical analysis of home air quality including comparative study with optimal living conditions. Useful for predictive model training for intuitive home assistant.
 
-![alt text](image-1.png)
+![Topology](image-1.png)
 
 ## Project Graphic:
 
@@ -95,9 +94,10 @@ Implement networking/connection with other component/platform/service
 Add output layer such as dashboard, logging, alerts, or storage Week5
 Testing, refinement, documentation, GitHub cleanup, and demo preparation
 
-![Graphic](image.png)
+![Graphic](image-4.png)
 
 ## Findings:
+
 The SenseHAT is good at measuring local environment, not a reliable
  measure of the air temp and humidity in the room. 
 Offset neccessary or calibrate data against a reliable measurement device.
@@ -110,7 +110,7 @@ Git commits are difficult pull, conflict, resolve, rebase, push!
 	
 	## humidity = humdty * (2.5 - 0.029 * temp)
 
-Marking Guide
+## Marking Guide
 
 Release 1(Core) 
 • At least one sensor or simulated data source (e.g. temperature, button, motion, External API). 
