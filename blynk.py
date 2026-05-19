@@ -1,14 +1,29 @@
-#define BLYNK_TEMPLATE_ID "TMPL4SspJfUmI"
-#define BLYNK_TEMPLATE_NAME "SensePi"
+# Author: Chloe Croydon 20119102
+# Blynk Program Description:
+# Blynk & IoT application for monitoring and controlling
+# environmental conditions using Raspberry Pi and Sense HAT.
 
+# define BLYNK_TEMPLATE_ID
+BLYNK_TEMPLATE_ID="TMPL4SspJfUmI"
+# define BLYNK_TEMPLATE_NAME
+BLYNK_TEMPLATE_NAME="SensePi"
+
+# Import libraries
 import BlynkLib
 import os
 from time import time, sleep
 from sense_hat import SenseHat
 
-#initialise SenseHAT
+# Initialise Sense HAT
 sense = SenseHat()
 sense.clear()
+deviceID = "rpi-01"
+
+# Define colours
+GREEN = (0,255,0)
+BLUE = (0,0,255)
+RED = (255,0,0)
+WHITE = (255, 255, 255)
 
 # Blynk authentication token
 BLYNK_AUTH = os.getenv("BLYNK_AUTH")
@@ -17,10 +32,27 @@ BLYNK_AUTH = os.getenv("BLYNK_AUTH")
 blynk = BlynkLib.Blynk(BLYNK_AUTH)
 
 # Time before process shuts down
-INACTIVITY_TIMEOUT = 30
+INACTIVITY_TIMEOUT = 130
 
 # Attach last activity
 blynk.last_activity = time()
+
+# Function to retrieve calibrated values
+def get_env_data():
+
+	temp = sense.get_temperature() - 7
+	humdty = sense.get_humidity() - 10
+
+	if temp > 25 or humdty > 70:
+		state = "WARNING"
+
+	elif temp < 18 or humdty < 35:
+		state = "LOW"
+
+	else:
+		state = "GOOD"
+
+	return temp, humdty, state
 
 # Handle virtual pin V1 write events
 @blynk.on("V1")
@@ -28,10 +60,11 @@ def handle_v1_write(value):
 
 	button_value = value[0]
 
-	# Track activity timestamp
+	# Update activity timestamp
 	blynk.last_activity = time()
 
-	print(f'Current button value: {button_value}')
+	print(f'Button value: {button_value}')
+
 	if button_value=="1":
 		sense.clear(255,255,255)
 	else:
@@ -45,19 +78,25 @@ if __name__ == "__main__":
 	try:
 		while True:
 
-			# Process events
+			# Process Blynk events
 			blynk.run()
 
-			# Send temperature to virtual pin V0
-			blynk.virtual_write(0,sense.temperature)
+			# Get telemetry
+			temp, humdty, state = get_env_data()
 
-			# Send humidity to virtual pin V2
-			blynk.virtual_write(2,sense.humidity)
+			# Print readings
+			print("Temperature: {:.1f} C | Humidity: {:.1f}% | State: {}".format(temp, humdty, state))
+
+			# Send telemetry to dashboard
+			blynk.virtual_write(0, temp)
+			blynk.virtual_write(2, humdty)
+			blynk.virtual_write(3, state)
 
 			now = time()
 
 			# If no activity, break loop
 			if now - blynk.last_activity > INACTIVITY_TIMEOUT:
+
 				print(f"No activity for {INACTIVITY_TIMEOUT} seconds. Exiting.")
 				break
 

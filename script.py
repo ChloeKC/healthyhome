@@ -1,24 +1,26 @@
-
 # Author: Chloe Croydon 20119102
-# Program Description:
-# This program welcomes user and facilitates telemetry data retrieval from Sense
-# HAT and returns collected environmental data to MQTT broker via json file.
+# sense_script Program Description:
+# RPi & Python program facilitates telemetry data retrieval from Sense
+# HAT and forwards collected environmental data to Blynk via json file.
 
 # Import libraries
 from sense_hat import SenseHat
 import BlynkLib, os, pathlib
+import os, json, datetime, time
 from time import sleep
-import json
-
-# Define colours
-GREEN = (0,255,0)
-BLUE = (0,0,255)
-RED = (255,0,0)
+from flask import Flask, requests
+from flask_cors import CORS
 
 # Initialise Sense HAT
 sense = SenseHat()
 sense.clear()
 deviceID = "rpi-01"
+
+# Define colours
+GREEN = (0,255,0)
+BLUE = (0,0,255)
+RED = (255,0,0)
+WHITE = (255, 255, 255)
 
 # Greeting
 sense.show_message(
@@ -32,8 +34,11 @@ sense.show_message(
 #	generally reads too low because it is affected by heat.
 #	Raw data is calibrated to for accuracy.
 
+# Create Flask app instance
+app = Flask(__name__)
+CORS(app)
 
-# Line 33 Function to retrieve sensor data
+# Function to retrieve calibrated sensor data
 def get_env_data():
 
 	# Read sensor data
@@ -48,9 +53,9 @@ def get_env_data():
 		state = "LOW"
 
 	else:
-		state = "OK"
+		state = "GOOD"
 
-	# Create a dictionary
+	# Create dictionary
 	data = {
 		"deviceID": deviceID,
 		"temp": round(temp, 2),
@@ -61,7 +66,7 @@ def get_env_data():
 	return data
 
 
-# Line 60 Main Loop
+# Main Loop
 while True:
 
 	# Get readings
@@ -76,6 +81,14 @@ while True:
 	print(
 		"Temperature: {:.1f} C Humidity: {:.1f} % | State: {}"
 		.format(temp, humdty, state)
+	)
+
+	# Print telemetry
+	print(json.dumps(data, indent=4))
+
+	# Send data to Flask
+	requests.post(
+		"http://localhost:5000/api/telemetry",json=data
 	)
 
 	# LED colour logic
@@ -98,13 +111,10 @@ while True:
 
 	# Display Humidity:
 	sense.show_message(
-		"Humy:{:.1f}%".format(humdty),
+		"Humdty:{:.1f}%".format(humdty),
 		text_colour=colour,
-		scroll_speed=0.08
+		scroll_speed=0.05
 	)
 
 	# Delay before next reading
-	time.sleep(2)
-
-# Line 101 client.publish(topic, json_data)
-
+	time.sleep(5)
