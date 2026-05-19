@@ -5,7 +5,7 @@
 
 Repository: https://github.com/ChloeKC/healthyhome
 
-Project Folder:cd ~/healthyhome source .venv/bin/activate
+Project Folder: cd ~/healthyhome source .venv/bin/activate
 
 
 
@@ -40,19 +40,14 @@ adequate mechanical ventilation and heat recovery. Monitoring consequent air
 temperature, pressure, moisture and mould issues, with further possibilities 
 for excess VOC, CO2 and Radon detection. 
 
-<<<<<<< HEAD
-‘Airtight houses experience negative pressure, which could reduce airflow’ A. Bailes III. 
-This could lead to back drafting where combustion gases, from cooker hoods for example, are pulled back into the house.
-
 ![retrofitDublin](image.png)
-=======
+
 ‘Airtight houses experience negative pressure, which could reduce airflow’ 
 								A. Bailes III. 
 This could lead to back drafting where combustion gases, a cooker hood for 
 example, are pulled back into the house.
 
 ![Retrofit_Dublin](image-8.png)
->>>>>>> 6f8387d (Describe your change)
 
 ##### “Build Tight, Ventilate Right.” SEAI
 
@@ -96,7 +91,7 @@ Log live climate IoT data, storing diverse data from multiple sources.
 ### Github:
 GitHub commits for project development documentation.
 
-### Packet Tracer PT:
+### Packet Tracer / Digital Twin:
 Simulate scenarios that are difficult to create for testing. Update PT sensor to send 
 telemetry data using bridging module. Develop sensor module on RPi that listens for UDP's 
 from PT sensor.
@@ -109,7 +104,7 @@ Future potential for adding live, home climate conditions to the Whether Weather
 indoor/outdoor comparisons.
 
 ### Demonstration:
-Youtube video.
+Youtube video/demo.
 
 ## Network Topology
 
@@ -134,21 +129,13 @@ values. Useful for predictive model training for intuitive home assistant with s
 
 ## Project Graphic:
 
-<<<<<<< HEAD
-Project idea, proposal, and approval
-Get input/data source working on the Raspberry Pi
-Implement networking/connection with other component/platform/service
-Add output layer such as dashboard, logging, alerts, or storage Week5
-Testing, refinement, documentation, GitHub cleanup, and demo preparation
-
 ![Graphic](image-4.png)
-=======
+
 ![Graphic](image.png)
->>>>>>> 6f8387d (Describe your change)
+
 
 
 ## Findings:
-<<<<<<< HEAD
 
 The SenseHAT is good at measuring local environment, not a reliable
  measure of the air temp and humidity in the room. 
@@ -162,36 +149,9 @@ Git commits are difficult pull, conflict, resolve, rebase, push!
 	
 	## humidity = humdty * (2.5 - 0.029 * temp)
 
-## Marking Guide
-
-Release 1(Core) 
-• At least one sensor or simulated data source (e.g. temperature, button, motion, External API). 
-• Regular data collection. 
-• Some local processing of raw values (e.g. thresholds, states, simple rules). 
-• One running program that shows behaviour clearly (console output acceptable). 
-• Basic logging/display (print values, write to file, simple terminal UI). 
-• Clear project description: problem, aim, and what you're building. 
-
-Release 1 Base (30-49) 
-One input source to Device Physical/Data link layer solution. Basic one way connection between device/processes. 2 programme strands present in output. Basic knowledge of each exhibited. (e.g. programming, database, computer systems) Zip file and/or basic Repo: Minimal (1) communication resource used (e.g.simple readme.md) and video. 
-
-
-Release 2(Good) 
-• Two distinct components/processes (e.g. sensor/edge node + service/dashboard). 
-• At least one network connection (MQTT, API, TCP/UDP, HTTP). 
-• Structured data messages (JSON recommended). 
-• Meaningful data handling beyond raw logging (averages, states, or simple analytics). 
-• Basic dashboard or visualisation (web page, terminal UI, or simple graph). 
-• Initial architecture diagram (boxes + arrows is fine). 
-Edge device sends JSON readings to a second service via MQTT/HTTP. The service logs the messages and shows a simple dashboard page.
-Release 2 Good (50-64)
- At least one real or simulated input source Wireless/Wired protocols  including network and transport layer. Interconnected device(s) and or processes. Apply and combine concepts from more than two modules/strands.. Good GithubRep: Repository includes clearstructure, documentation. 
-=======
-
-The SenseHAT is good at measuring local environment, possibly not a reliable measure of 
-the air temp and humidity in the room. 
+The SenseHAT is good at measuring local environment, but seemingly around 80% reliable for 
+the air temp and humidity values in the room. 
 Refinement: Offset or calibrate data against a reliable measurement device essential. 
->>>>>>> 6f8387d (Describe your change)
 
 	### humidity = humdty * (2.5 - 0.029 * temp) 
 
