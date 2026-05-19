@@ -1,4 +1,5 @@
 from flask import Flask, request
+import requests
 import json
 from flask_cors import CORS
 from sense_hat import SenseHat
@@ -6,7 +7,7 @@ from sense_hat import SenseHat
 # Create Flask app instance
 app = Flask(__name__)
 
-# Define save data function
+# Define SAVE data function
 @app.route('/api/telemetry', methods=['POST'])
 
 def save_data():
@@ -18,7 +19,7 @@ def save_data():
 
     return {"status": "saved"}
 
-# Define get data function
+# Define GET data function
 @app.route('/api/telemetry', methods=['GET'])
 
 def get_data():

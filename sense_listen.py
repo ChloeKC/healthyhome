@@ -1,10 +1,14 @@
 import socket
 import threading
+import json
+import requests
+from time import sleep
 
+# Encapsulation
 class SensorListen:
 
 	#Initialise UDP Listener
-	def __init__(self, host='0.0.0.0', port=5000, buffer_size=1024):
+	def __init__(self, host='0.0.0.0', port=5005, buffer_size=1024):
 
 		self.host = host
 		self.port = port
@@ -32,7 +36,19 @@ class SensorListen:
 			while self.running:
 				try:
 					data, address = server.recvfrom(self.buffer_size)
-					print(f"Received data: {data.decode()} from {address}")
+
+					payload = json.loads(data.decode())
+
+					print(
+						f"Received data: from {address}")
+
+					print(payload)
+
+					requests.post(
+						"http://localhost:5000/api/telemetry",
+						json=payload
+					)
+
 					if self.callback:
 						self.callback(data.decode())
 				except Exception as e:
@@ -52,7 +68,7 @@ if __name__ == "__main__":
 
 	try:
 		while True:
-			pass  # Keep main thread alive
+			sleep(1)  # Keep main thread alive
 	except KeyboardInterrupt:
 		listener.stop()
 
