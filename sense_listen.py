@@ -50,7 +50,7 @@ class SensorListen:
 					)
 
 					if self.callback:
-						self.callback(data.decode())
+						self.callback(payload())
 				except Exception as e:
 					print(f"Error receiving data: {e}")
 			print("UDP Listener Stopped")
@@ -60,9 +60,9 @@ if __name__ == "__main__":
 
 	# Example usage
 	def handle_data(data):
-		print(f"Processing data: {data}")
+		print(f"Processing telemetry: {data}")
 
-	listener = SensorListen(port=5000)
+	listener = SensorListen(port=5005)
 	listener.callback=handle_data
 	listener.start()
 
