@@ -9,36 +9,56 @@ Project Folder: cd ~/healthyhome source .venv/bin/activate
 
 ![RPi](image-3.png)
 
-### "Healthy Home" - Smart Environment Analysis and Alert System
+## Healthy Home – Climate Analysis and Alert System
+## Monitor • Analyse • Alert • Protect
 
 
 ### Healthy Home files:
 
-script.py
-backend_api.py
-sense_listen.py
-render.html
-telemetry.json
-blynk.py
-blynk_pt.py
-healthyhome.pkt
-README.md
+script.py 	(sensor + telemetry)
+web_api.py 	(backend storage + dashboard)
+sense_listen.py (UDP simulation)
+render.html 	(web API)
+telemetry.json 	(storage file)
+blynk.py 	(notifications)
+blynk_pt.py 	(simulated telemetry retrieval)
+healthyhome.pkt (additional simulated telemetry source)
+README.md 	(instructions etc)
+
+## Instructions
+
+	SSH
+	cd ~/healthyhome 
+	source .venv/bin/activate
+	script.py
+	backend_api.py
+	sense_listen.py
+	render.html
+	telemetry.json
+	blynk.py
+	blynk.pt.py
+	Blynk Dashboard/Phone
+	sudo shutdown
 
 ## Introduction
 
 This project implements an IoT-based indoor climate monitoring system using a Raspberry Pi and Sense HAT. The device collects temperature and humidity data at regular intervals, applies threshold-based logic to classify environmental conditions. The information is stored and published as structured JSON messages via MQTT and HTTP applications. A cloud-based dashboard visualises the data and provides real-time alerts when conditions fall outside optimal ranges. The project demonstrates edge processing, network communication, and user-facing visuals within an event-driven IoT system. Utilizing user-friendly system architecture and protocols to establish accessibility, security and the separation of concerns:
 
-####   Sensors → Edge Processing → UDP Simulation → HTML/MQTT → Backend API → Dashboard Service → User Apps
+####   Sensors → Edge Processing → Telemetry Simulation → HTML/MQTT → Backend API → Dashboard Service → User Apps
 
-####   Sense HAT →  RPi/Python →  Flask/Render/Blynk → Packet Tracer → Blynk Dashboard → Mobile Interfaces
+####   Sense HAT →  RPi/Python → Packet Tracer → Flask/Render/Blynk → Blynk Dashboard → Mobile Interfaces
 
+sensor input
+regular collection
+local processing
+networking
+storage
+visualisation
 
 A cost saving, health and environment friendly solution for air quality and temperature regulation in a fully insulated, airtight environment without adequate mechanical ventilation and heat recovery. Monitoring and solving consequent air temperature, pressure, moisture and mould issues, with further possibilities for excess VOC, CO2 and Radon detection. 
 ‘Airtight houses experience negative pressure, which could reduce airflow’ A. Bailes III. This could lead to back drafting where combustion gases, from cooker hoods for example, are pulled back into the house.
 
-‘Airtight houses experience negative pressure, which could reduce airflow’ 
-								A. Bailes III. 
-This could lead to back drafting where combustion gases, a cooker hood for 
+This could lead to back drafting where combustion gases, from cooker hoods for 
 example, are pulled back into the house.
 
 ![Retrofit_Dublin](image-8.png)
@@ -152,11 +172,13 @@ Git commits difficult: pull, conflict, resolve, rebase, push.
 
 ### Solutions:
 
-An adapter to separate HAT from RPi.
-Offset by 20% for air temperature and humidity values in the room.
-Calibrate data against a reliable measurement device essential.
-Infrequent readings. 
+An adapter to separate HAT from RPi. Infrequent readings.
+Offset gauge by ≈ 20% for air temperature and humidity values in the room.
+Calibrate data against a reliable measurement device essential. 
+LED visual feedback prioritised over telemetry frequency.
 
 ### Conclusions:
-The humidity was constantly too low in our home.
-The SenseHAT is good at measuring local environment, not a reliable measure of the air temp and humidity in the room. 
+
+The SenseHAT is good at measuring local environment, although not 100% reliable for measure of the air temp and humidity in the room without calibration. 
+The humidity was frequently too low in the rooms downstairs, as these are bedrooms not the main living area, low temperatures can be obtained for suitable sleep conditions. Maybe even adding a smart humidifier to the Healthy Home system. 
+Fortunately, the upstairs high humidity and temps can now be monitored to establish a healthy home environment.

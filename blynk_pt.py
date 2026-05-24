@@ -1,7 +1,7 @@
 # Author: Chloe Croydon 20119102
 # Blynk Program Description:
 # Blynk, Packet Tracer & IoT application for monitoring simulated
-# environmental conditions using Raspberry Pi and Sense HAT.
+# environmental conditions to test prototype.
 
 import BlynkLib
 from time import sleep
@@ -34,7 +34,7 @@ def sense_telemetry(payload):
 
 	# Trigger alert
 
-	if device != "rpi-01" or value != 1:
+	if device != "rpi" or value != 1:
 		return
 
 	blynk.log_event("event_alert", "Inhospitable Conditions Detected")

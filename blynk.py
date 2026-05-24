@@ -17,7 +17,7 @@ from sense_hat import SenseHat
 # Initialise Sense HAT
 sense = SenseHat()
 sense.clear()
-deviceID = "rpi-01"
+deviceID = "rpi"
 
 # Define colours
 GREEN = (0,255,0)
