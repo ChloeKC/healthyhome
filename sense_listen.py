@@ -1,3 +1,10 @@
+# Author: Chloe Croydon 20119102
+# Healthy Home sense_listen
+
+# Program Description:
+# UDP Listener
+# ------------------------------------------------
+
 import socket
 import threading
 import json
@@ -5,6 +12,7 @@ import requests
 from time import sleep
 
 # Encapsulation
+# -------------
 class SensorListen:
 
 	#Initialise UDP Listener
@@ -56,6 +64,7 @@ class SensorListen:
 			print("UDP Listener Stopped")
 
 # Main loop
+#----------
 if __name__ == "__main__":
 
 	# Example usage

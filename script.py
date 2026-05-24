@@ -1,22 +1,25 @@
 # Author: Chloe Croydon 20119102
-# sense_script Program Description:
-# RPi & Python program facilitates telemetry data retrieval from Sense
-# HAT and forwards collected environmental data to Blynk via json file.
+# Healthy Home Sense Script
 
-# Import libraries
+# Program Description:
+# RPi & Python program facilitates telemetry data retrieval from SenseHAT
+# and forwards collected environmental data to Flask/Blynk via json file.
+# ------------------------------------------------------------------------
+
+# Import Libraries
 from sense_hat import SenseHat
-import BlynkLib, os, pathlib
-import os, json, datetime, time
+import os
+import json
+import time
 from time import sleep
-from flask import Flask, requests
-from flask_cors import CORS
+import requests
 
 # Initialise Sense HAT
 sense = SenseHat()
 sense.clear()
-deviceID = "rpi-01"
+deviceID = "rpi"
 
-# Define colours
+# Define Colours
 GREEN = (0,255,0)
 BLUE = (0,0,255)
 RED = (255,0,0)
@@ -24,75 +27,74 @@ WHITE = (255, 255, 255)
 
 # Greeting
 sense.show_message(
-	"Hello Healthy Home Hacker",
+	"Hi Healthy Home Hacker",
 	scroll_speed=0.05,
 	text_colour=GREEN
 )
 
+# Environmental Telemetry Function:
+# --------------------------------
 # Note: Temperature and Humidity readings can be influenced
 #       by heat from RPi's CPU. The humidity sensor on the SenseHAT
 #	generally reads too low because it is affected by heat.
 #	Raw data is calibrated to for accuracy.
 
-# Create Flask app instance
-app = Flask(__name__)
-CORS(app)
-
-# Function to retrieve calibrated sensor data
 def get_env_data():
 
-	# Read sensor data
+	# Read/calibrate
 	temp = round(sense.get_temperature() - 7, 2)
 	humdty = round(sense.get_humidity() - 10, 2)
 
 	# Determine state
 	if temp > 25 or humdty > 70:
-		state = "WARNING"
+		state = "HIGH"
 
 	elif temp < 18 or humdty < 35:
 		state = "LOW"
 
 	else:
-		state = "GOOD"
+		state = "SAUL GOOD"
 
-	# Create dictionary
+	# Dictionary
 	data = {
 		"deviceID": deviceID,
-		"temp": round(temp, 2),
-		"humidity": round(humdty, 2),
+		"temperature": temp,
+		"humidity": humdty,
 		"state": state
 	}
 
 	return data
 
 
-# Main Loop
+# Main Loop:
+# ----------
+
 while True:
 
 	# Get readings
 	data = get_env_data()
 
 	deviceID = data["deviceID"]
-	temp = data["temp"]
+	temp = data["temperature"]
 	humdty = data["humidity"]
 	state = data["state"]
 
-	# Print to command line
+	# Print to CLI
 	print(
 		"Temperature: {:.1f} C Humidity: {:.1f} % | State: {}"
 		.format(temp, humdty, state)
 	)
 
-	# Print telemetry
+	# Print to JSON
 	print(json.dumps(data, indent=4))
 
-	# Send data to Flask
+	# Send to Flask
 	requests.post(
 		"http://localhost:5000/api/telemetry",json=data
 	)
 
-	# LED colour logic
-	if state == "WARNING":
+	# LED Logic
+	if state == "HIGH":
     		colour = RED
 
 	elif state == "LOW":
@@ -102,7 +104,7 @@ while True:
     		colour = GREEN
 
 
-	# Display temperature:
+	# Display Temperature:
 	sense.show_message(
 		"Temp:{:.1f}C".format(temp),
 		text_colour=colour,

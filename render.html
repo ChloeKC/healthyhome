@@ -1,0 +1,44 @@
+# Author: Chloe Croydon 20119102
+# Healthy Home Web API
+
+# Program Description:
+# HTML Render Template for web API /api/telemetry
+# ------------------------------------------------
+
+<!doctype html>
+
+<html>
+
+<head>
+	<title>RPi SenseHAT Telemetry Data</title>
+	<link href="https://mattduck.github.io/generic-css/css/generic-light.min.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+	<h1>Healthy Home: Climate Analysis & Alerts</h1>
+
+	<p><strong>Temperature:</strong> {{ temperature }} °C</p>
+	<p><strong>Humidity:</strong> {{ humidity }} %</p>
+	<p><strong>State:</strong> {{ state }}</p>
+
+	<h2>RPi SenseHAT Telemetry Data Summary</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Resource/Path</th>
+				<th>GET</th>
+				<th>PUT</th>
+			</tr>
+		</thead>
+	<tbody>
+		<tr>
+			<td>/api/telemetry</td>
+			<td>Retrieve Telemetry Data</td>
+			<td></td>
+		</tr>
+	</tbody>
+	</table>
+</body>
+
+</html>
