@@ -13,29 +13,40 @@ Repository: https://github.com/ChloeKC/healthyhome
 
 ### Healthy Home files:
 
-script.py 	(sensor + telemetry)
-web_api.py 	(backend storage + dashboard)
-sense_listen.py (UDP simulation)
-render.html 	(web API)
-telemetry.json 	(storage file)
-blynk.py 	(notifications)
-blynk_pt.py 	(simulated telemetry retrieval)
-healthyhome.pkt (additional simulated telemetry source)
-README.md 	(instructions etc)
+healthyhome_api.py      (backend API, JSON storage & HTML)
+
+script.py	 	(sensor + telemetry)
+
+sense_listen.py 	(UDP simulation)
+
+render.html 		(dashboard template)
+
+telemetry.json 		(telemetry storage file)
+
+blynk.py 		(notifications)
+
+blynk_pt.py 		(simulated telemetry retrieval)
+
+healthyhome.pkt 	(additional simulated telemetry source)
+
+README.md 		(intro, graphic, instructions, etc)
 
 ## Instructions
 
 	SSH
-	cd ~/healthyhome 
+	cd ~/healthyhome
 	source .venv/bin/activate
+	
+	healthyhome_api.py
 	script.py
-	backend_api.py
 	sense_listen.py
-	render.html
-	telemetry.json
+	cat telemetry.json
+	dashboard (http://localhost:5000)
+
 	blynk.py
 	blynk.pt.py
 	Blynk Dashboard/Phone
+	
 	sudo shutdown
 
 ## Introduction
@@ -47,7 +58,9 @@ This project implements an IoT-based indoor climate monitoring system using a Ra
 ####   Sense HAT →  RPi/Python → Packet Tracer → Flask/Render/Blynk → Blynk Dashboard → Mobile Interfaces
 
 A cost saving, health and environment friendly solution for air quality and temperature regulation in a fully insulated, airtight environment without adequate mechanical ventilation and heat recovery. Monitoring and solving consequent air temperature, pressure, moisture and mould issues. 
+
 ##### "Airtight houses experience negative pressure, which could reduce airflow" A. Bailes III. 
+
 Further potential for excess VOC, CO2 and Radon detection. And monitoring for negative pressure which causes back drafting (combustion gases are pulled back into the house).
 
 ![Retrofit_Dublin](image-8.png)
@@ -61,7 +74,8 @@ The Sense HAT(IoT device) monitors environmental conditions and the Raspberry Pi
 ####     Indoor Environment Monitoring 	Future VOC / CO₂ / Radon Sensing
 
 
-## Project Graphic (Generated OpenAI (2026) Image generated using ChatGPT (GPT-5.5) from prompt)
+## Project Graphic 
+(Generated OpenAI (2026) Image generated using ChatGPT (GPT-5.5))
 
 ![Graphic](image-5.png)
 
@@ -171,6 +185,10 @@ LED visual feedback prioritised over telemetry frequency.
 The SenseHAT is good at measuring local environment, although not 100% reliable for measure of the air temp and humidity in the room without calibration. 
 The humidity was frequently too low in the rooms downstairs, as these are bedrooms not the main living area, low temperatures can be obtained for suitable sleep conditions. Maybe even adding a smart humidifier to the Healthy Home system. 
 Fortunately, the upstairs high humidity and temps can now be monitored to establish a healthy home environment.
+Unfortunately, I could not get every component to operate together, the REST API dashboard for example is not rendering. Also, I ran out of time to create a graphic so ChatGPT had to do that job for me.
+The packet tracer simulation piece is also incomplete, I may have underwhelmed in the proposal and then overshot my capabilities with the actual project.
+
+I have learnt an enormous amount from the RPi/IOT project. I thoroughly enjoyed it and now have the IoT architecture and knowledge to implement in our "healthy home". 
 
 ### References:
 

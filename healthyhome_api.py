@@ -2,8 +2,9 @@
 # Healthy Home Flask App
 
 # Program Description:
-# Flask API development, creating access to telemetry data via
-# exposing Web API /api/telemetry
+# Flask API development, creates access to telemetry data by
+# exposing API endpoints using HTTP methods.  /api/telemetry
+# http://192.168.178.28:5000
 # ------------------------------------------------------------
 
 # Import Libraries
@@ -21,7 +22,7 @@ deviceID="rpi"
 # Flask App instance
 app = Flask(__name__)
 
-# HTML SAVE Function
+# HTML POST/save Function
 @app.route('/api/telemetry', methods=['POST'])
 def save_data():
 
@@ -31,9 +32,9 @@ def save_data():
 	# Append "a" readings
 	with open("telemetry.json", "a") as dump:
 
-		dump.write(json.dumps(data) + "\n")
+		save = dump.write(json.dumps(data) + "\n")
 
-#    	return str("Saved!" + "\n")
+	return jsonify(save)
 
 # HTTP GET Function
 @app.route('/api/telemetry', methods=['GET'])
