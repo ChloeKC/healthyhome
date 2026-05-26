@@ -3,12 +3,13 @@
 
 ## Chloe Croydon 20119102
 
+Demo: https://www.youtube.com/watch?v=zhIxvk1B-Ys
 Repository: https://github.com/ChloeKC/healthyhome
 
 ![RPi](image-3.png)
 
 ## Healthy Home – Climate Analysis and Alert System
-## Monitor • Analyse • Alert • Protect
+## 	Monitor 	• Analyse 	• Alert 	• Protect
 
 
 ### Healthy Home files:
@@ -51,7 +52,7 @@ README.md 		(intro, graphic, instructions, etc)
 
 ## Introduction
 
-This project implements an IoT-based indoor climate monitoring system using a Raspberry Pi and Sense HAT. The device collects temperature and humidity data at regular intervals, applies threshold-based logic to classify environmental conditions. The information is stored and published as structured JSON messages via MQTT and HTTP applications. A cloud-based dashboard visualises the data and provides real-time alerts when conditions fall outside optimal ranges. The project demonstrates edge processing, network communication, and user-facing visuals within an event-driven IoT system. Utilizing user-friendly system architecture and protocols to establish accessibility, security and the separation of concerns:
+This project implements an IoT-based indoor climate monitoring system using a Raspberry Pi and Sense HAT. The device collects temperature and humidity data at regular intervals, applies threshold-based processing to update users with environmental conditions. The information is stored and published as structured JSON messages via MQTT and HTTP applications. A cloud-based dashboard visualises the data and provides real-time alerts when conditions fall outside optimal ranges. The project demonstrates edge processing, network communication, and user-facing visuals within an event-driven IoT system. Utilizing user-friendly system architecture and protocols to establish accessibility, security and the separation of concerns:
 
 ####   Sensors → Edge Processing → Telemetry Simulation → HTML/MQTT → Backend API → Dashboard Service → User Apps
 
@@ -67,7 +68,7 @@ Further potential for excess VOC, CO2 and Radon detection. And monitoring for ne
 
 ##### “Build Tight, Ventilate Right.” SEAI
 
-The Sense HAT(IoT device) monitors environmental conditions and the Raspberry Pi(MQTT Client) processes data locally with Python scripting. The collected data is forwarded to Blynk (MQTT Broker) who publishes the processed telemetry and insights via subscribed UI apps(web) and notification systems(smartphone, email). Utilizes event-driven architecture to provide real-time alerts via push notifications when conditions go outside an optimal, predefined threshold.
+The Sense HAT(IoT device) monitors environmental conditions and Raspberry Pi(MQTT Client) processes data locally with Python scripting. The collected data is transformed and forwarded to Blynk and Render dashboards. The processed telemetry and insights can then be published via subscribed UI apps(web) and notification systems(smartphone, email). Utilizes event-driven architecture to provide real-time alerts via push notifications when conditions go outside an optimal, predefined threshold.
 
 #### Ventilation 	Mould Prevention 	Thermal Comfort	Smart/Remote Control
 
@@ -188,7 +189,7 @@ Fortunately, the upstairs high humidity and temps can now be monitored to establ
 Unfortunately, I could not get every component to operate together, the REST API dashboard for example is not rendering. Also, I ran out of time to create a graphic so ChatGPT had to do that job for me.
 The packet tracer simulation piece is also incomplete, I may have underwhelmed in the proposal and then overshot my capabilities with the actual project.
 
-I have learnt an enormous amount from the RPi/IOT project. I thoroughly enjoyed it and now have the IoT architecture and knowledge to implement in our "healthy home". 
+I have learnt an enormous amount from the RPi/IOT project and have the IoT architecture and networking knowledge to implement "Healthy Home" in our home.
 
 ### References:
 
