@@ -4,6 +4,7 @@
 ## Chloe Croydon 20119102
 
 Demo: https://www.youtube.com/watch?v=zhIxvk1B-Ys
+
 Repository: https://github.com/ChloeKC/healthyhome
 
 ![RPi](image-3.png)
@@ -40,7 +41,6 @@ README.md 		(intro, graphic, instructions, etc)
 	
 	healthyhome_api.py
 	script.py
-	sense_listen.py
 	cat telemetry.json
 	dashboard (http://localhost:5000)
 
@@ -58,11 +58,11 @@ This project implements an IoT-based indoor climate monitoring system using a Ra
 
 ####   Sense HAT →  RPi/Python → Packet Tracer → Flask/Render/Blynk → Blynk Dashboard → Mobile Interfaces
 
-A cost saving, health and environment friendly solution for air quality and temperature regulation in a fully insulated, airtight environment without adequate mechanical ventilation and heat recovery. Monitoring and solving consequent air temperature, pressure, moisture and mould issues. 
+A cost saving, health and environment friendly solution for air quality and temperature regulation in a fully insulated, airtight environment without adequate mechanical ventilation and heat recovery. Monitoring the consequent air temperature, humidity, moisture and mould issues. 
 
 ##### "Airtight houses experience negative pressure, which could reduce airflow" A. Bailes III. 
 
-Further potential for excess VOC, CO2 and Radon detection. And monitoring for negative pressure which causes back drafting (combustion gases are pulled back into the house).
+Further potential for excess VOC, CO2 and Radon detection. Also, monitoring for negative pressure which causes back drafting (combustion gases are pulled back into the house).
 
 ![Retrofit_Dublin](image-8.png)
 
@@ -82,18 +82,18 @@ The Sense HAT(IoT device) monitors environmental conditions and Raspberry Pi(MQT
 
 ## Tools, Technologies and Equipment
 An edge IoT device monitors indoor climate and sends structured data to a service, 
-which processes it and provides alerts and a dashboard.
+which processes telemetry and provides alerts and dashboard.
 
 
-Sense HAT          Packet Tracer UDP
+  Sense HAT        Packet Tracer UDP
      ↓                   ↓    
-     sensor_service.py
-               ↓	  HTTP POST JSON	
-	udp_listener.py
+sensor_service.py	 HTTP POST JSON	
+                  ↓
+		udp_listener.py
                ↓
-    			 Flask Backend API
-               ↓
-          Telemetry .JSON
+    	Flask Backend API
+                  ↓
+         Telemetry .JSON
                ↓
      Blynk Dashboard / Web API
 
@@ -143,11 +143,11 @@ from PT sensor.
 
 ![PacketTracer](image-2.png)
 
-### Simple Home Network in Packet Tracer:
+### Simple Home Network in Packet Tracer(under construction):
 Configured Network Devices
 Simulated IoT/Senser Devices
 Telemetry Ingestion 
-UDP transport Protocol
+UDP Transport Protocol
 Sensor Listener
 Threaded Network
 Packet Handling
@@ -157,19 +157,16 @@ Blynk Integration
 
 ## Testing & Data Analysis:
 
-RPi and Sense HAT setup in living space, collecting cumulative data to test the quality of python processing code, information gathering technique and published alerts and insights.
+RPi and Sense HAT setup in living space, collecting data, to test the quality of python processing code, information gathering technique and published alerts and insights.
 
 Blynk event and automation testing with simulated data, temperature/humidity spikes/troughs, for tracking events and alerts system.
 
 Packet Tracer prototype to simulate a smart home network that utilize IoT devices and apps.
 
-Statistical analysis of home air quality i.e. comparative study with optimal temperature values. Useful for predictive model training for intuitive home assistant with smart hardware.
-
-
 ## Problems/Findings:
 
-The temperature sensor on the SenseHAT generally reads too high as it is affected by heat from RPi CPU.
-The humidity sensor generally reads too low because it is also affected by heat.
+The temperature sensor on the SenseHAT generally reads too high as affected by heat from RPi CPU.
+The humidity sensor generally reads too low, also affected by heat.
 Display layer introduces delays during LED message rendering. 
 Git commits difficult: pull, conflict, resolve, rebase, push.
 
@@ -183,13 +180,13 @@ LED visual feedback prioritised over telemetry frequency.
 
 ### Conclusions:
 
-The SenseHAT is good at measuring local environment, although not 100% reliable for measure of the air temp and humidity in the room without calibration. 
-The humidity was frequently too low in the rooms downstairs, as these are bedrooms not the main living area, low temperatures can be obtained for suitable sleep conditions. Maybe even adding a smart humidifier to the Healthy Home system. 
+The SenseHAT is good at measuring local environment, although not 100% reliable measure for air temp and humidity in living space without calibration. 
+The humidity was frequently too low in the rooms downstairs, as these are bedrooms not the main living area. low temperatures is acceptable. Added a smart humidifier to Healthy Home system. 
 Fortunately, the upstairs high humidity and temps can now be monitored to establish a healthy home environment.
-Unfortunately, I could not get every component to operate together, the REST API dashboard for example is not rendering. Also, I ran out of time to create a graphic so ChatGPT had to do that job for me.
-The packet tracer simulation piece is also incomplete, I may have underwhelmed in the proposal and then overshot my capabilities with the actual project.
-
-I have learnt an enormous amount from the RPi/IOT project and have the IoT architecture and networking knowledge to implement "Healthy Home" in our home.
+Unfortunately, I could not get every component to operate together, the REST API dashboard for example is not rendering. Also, I ran out of time to create a graphic, so ChatGPT was neccessary for that job.
+Statistical analysis of home air quality is the next step, i.e. comparative study with optimal temperature values. Useful for predictive model training for intuitive home assistant with smart hardware.
+The packet tracer simulation piece is incomplete, after underwhelming with the proposal, I overshot my capabilities with the actual project.
+Regardless, I have learnt a great amount from the project and have the IoT architecture and networking knowledge to implement "Healthy Home" in our home.
 
 ### References:
 
